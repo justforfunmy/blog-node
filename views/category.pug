@@ -1,0 +1,31 @@
+.category
+    .list-a.flex
+        .item.flex.j-center.d-column.a-center.fg
+            i.fa.fa-flash(style='color:gold')
+            p Live
+        .item.flex.j-center.d-column.a-center.fg
+            i.fa.fa-book(style='color:green')
+            p 书店
+        .item.flex.j-center.d-column.a-center.fg
+            i.fa.fa-chrome(style='color:blue')
+            p 圆桌
+    .list-a.flex
+        .item.flex.j-center.d-column.a-center.fg
+            i.fa.fa-pencil(style='color:skyblue')
+            p 专栏
+        .item.flex.j-center.d-column.a-center.fg
+            i.fa.fa-money(style='color:darkblue')
+            p 付费咨询
+        .item.flex.j-center.d-column.a-center.fg
+
+script(type='text/javascript').
+    $(function(){
+        $('.list-a .item').on('mouseenter',function(){
+            var color = $(this).find('.fa').css('color');
+            $(this).find('p').css('color',color);
+        }).on('mouseleave',function(){
+            $(this).find('p').css('color','#8590a6');
+        })
+    })
+
+            

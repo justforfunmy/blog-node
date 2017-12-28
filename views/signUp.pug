@@ -1,0 +1,61 @@
+extends layout
+
+block content
+    h1 SignUp
+    form(method='POST' action='/users/signUp')
+        .form-group.formWidth
+            label 用户名
+            input.form-control(type='text' placeholder='input your name' name='userName' required)
+        .form-group.formWidth
+            label 个人标签
+            input.form-control(type='text' placeholder='input your tags' name='tags' required)
+        .form-group.formWidth
+            label 密码
+            input.form-control(type='password' placeholder='input your password' name = 'password' required)
+        .form-group.formWidth
+            label 确认密码
+            input.form-control(type='password' placeholder='reinput your password' name = 'rePassword' required)
+        .checkbox
+            label
+                input(type='checkbox')
+                input(type='hidden' name='remembered')
+                p 记住我
+        button.btn.btn-default.click#submitBtn 注册
+        a(href='/users/login') 已有帐号，去登录
+
+    include errorMsg
+
+    script(type='text/javascript').
+        //$(function(){
+            //- $('#submitBtn').on('click',function(){
+            //-     console.log($('input[name="password"]').val(),$('input[name="rePassword"]'));
+            //-     if($('input[name="password"]').val() !== $('input[name="rePassword"]')){
+            //-         console.log('not same')
+            //-     }else{
+            //-         $.ajax({
+            //-             url:'/users/newUsers',
+            //-             type:'POST',
+            //-             data:{
+            //-                 userName:$('input[name="userName"]').val(),
+            //-                 password:$('input[name="password"]').val()
+            //-             },
+            //-             success:function(res){
+            //-                 console.log(res)    
+            //-             },
+            //-             error:function(err){
+            //-                 console.log(err)
+            //-             }
+            //-         })
+            //-     }
+            //- })
+        //})
+
+        $(function(){
+            var remember = $(this).is(':checked');
+            $('input[name="remembered"]').val(remember);
+            $('input[type="checkbox"]').on('click',function(){
+                remember = $(this).is(':checked');
+                $('input[name="remembered"]').val(remember);
+                console.log($('input[name="remembered"]').val())
+            })
+        })

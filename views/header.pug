@@ -1,0 +1,53 @@
+.header
+    .header-inner.flex
+        .left.flex.a-center
+            .logo
+            nav.flex
+                .input(type='hidden',value='#{activeIndex}')
+                if activeIndex == 1
+                 .column.active 首页 
+                 .column 发现
+                 .column 话题
+                else if activeIndex == 2
+                 .column 首页 
+                 .column.active 发现
+                 .column 话题
+                else if activeIndex ==3
+                 .column 首页 
+                 .column 发现
+                 .column.active 话题
+            .search.fg
+                form.flex
+                    .Input-wrapper.fg
+                        input.Input(type='text',placeholder='搜索你感兴趣的内容...')
+                    .question.Button 提问
+        .right.fg.flex.j-end.a-center
+            .icon.i-notice
+            .icon.i-msg
+            if userName==null
+              a(href='/users/login') 未登录
+            else if userName!=null
+              span #{userName}
+              span#logout(style='margin-left:10px;cursor:pointer;color:#8590a6') 登出
+
+script(type='text/javascript').
+    $(function(){
+        $('nav .column').on('click',function(){
+            var activeIndex = $(this).index();
+            window.location.href = '/blog?activeIndex='+activeIndex;
+        })
+        $('#logout').on('click',function(){
+            $.ajax({
+                url:'/users/logout',
+                type:'GET',
+                success:function(res){
+                    if(res.code==1){
+                        window.location.reload()
+                    }
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        })
+    })

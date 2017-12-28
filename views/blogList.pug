@@ -1,0 +1,78 @@
+.list
+    ul
+        for blog in blogList
+          li
+            
+            p.topic 来自话题：
+                span=blog.topic
+            .title=blog.title
+            .author
+                span=blog.authorName
+                span ,
+                span=blog.authorTags
+            .abstract.flex.a-center
+                .imgs.flex.a-center.j-center
+                    img(src=blog.image)
+                .fg
+                    p=blog.abstract
+            .options.flex.a-center
+                if agreeList.indexOf(blog._id)!=-1
+                  .agree.done
+                      input(type='hidden',value=blog._id,name='blogId')
+                      i.fa.fa-thumbs-up
+                      span=blog.agrees.length
+                else
+                  .agree.dis
+                      input(type='hidden',value=blog._id,name='blogId')
+                      i.fa.fa-thumbs-up
+                      span=blog.agrees.length
+                .comment
+                    i.fa.fa-weixin
+                    span=blog.comments.length
+                    span 条评论
+        else
+          li 没有博文
+script(type='text/javascript').
+    $(function(){
+        $('.agree').on('click',function(){
+            var blogId = $(this).find('input[name="blogId"]').val();
+            var el = $(this);
+            var number = el.find('span').text();
+            if (el.hasClass('dis')){
+                $.ajax({
+                    url:'/agree',
+                    data:{
+                        blogId:blogId
+                    },
+                    type:'POST',
+                    success:function(res){
+                        if(res.code==1){
+                            el.addClass('done').removeClass('dis');
+                            el.find('span').text(number-0+1)
+                        }
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            }else{
+                $.ajax({
+                    url:'/agree/cancelAgree',
+                    data:{
+                        blogId:blogId
+                    },
+                    type:'POST',
+                    success:function(res){
+                        if(res.code==1){
+                            el.removeClass('done').addClass('dis');
+                            el.find('span').text(number-0-1)       
+                        }
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            }
+            
+        })
+    })

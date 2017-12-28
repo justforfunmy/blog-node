@@ -1,0 +1,53 @@
+extends layout
+
+block content
+    
+    
+    .header
+        .header-inner.flex.a-center.j-between
+            span(style='font-size:25px;padding-left:40px') Blog
+            i.fa.fa-list-ul(style='color:#b3b3b3;font-size:25px;cursor:pointer')
+    .edit-main
+        form(action="/blog/newBlog" method='POST')
+            .form-group
+                label(for="title") 标题
+                input.form-control(type='text',placeholder='请输入标题',name='title')
+            .form-group
+                label(for="topic") 主题
+                input.form-control(type='text',placeholder='请输入主题',name='topic')
+            .form-group
+                label(for="abstract") 摘要
+                input.form-control(type='text',placeholder='请输入摘要',name='abstract')
+            .form-group
+                label(for="image") 上传图片
+                input.dropify#input-file-now(type='file')
+                input(type='hidden',name='image')
+            .form-group
+                label(for="content") 内容
+                textarea.form-control(type='text',placeholder='请输入内容',name='content',rows='10')
+            .form-group
+                input.btn.btn-default(type='submit' value='提交')
+    script(src='/javascripts/uploads/dropify.js')
+    script(type='text/javascript').
+        $(function(){
+            $('.dropify').dropify();
+            //upload
+            $('input[type="file"]').on('change',function(){
+                var file = $(this).get(0).files[0];
+                var formData = new FormData();
+                formData.append('file',file);
+                $.ajax({
+                    type:'POST',
+                    url:'/upload',
+                    data:formData,
+                    contentType:false,
+                    processData:false,
+                    success:function(res){
+                        $('input[name="image"]').val(res.fileUrl)
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            })
+        })

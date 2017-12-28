@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1 #{noticeMsg},&nbsp;
+        span#seconds 5 
+        span &nbsp;秒后跳转...
+    input#goTo(type='hidden' value = directTo)
+
+    script(type='text/javascript').
+        $(function(){
+            var seconds = 5;
+            var timing = setInterval(function(){
+                if(seconds>1){
+                    seconds--;
+                    $('#seconds').text(seconds+" ")
+                }else{
+                    window.location.href = $('#goTo').val();
+                }
+            },1000)
+        })
+        

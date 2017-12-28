@@ -1,0 +1,11 @@
+if error
+    .errorTab
+        .errorMsg
+            h3 出错啦！
+            p #{msg}
+            .btn.btn-default#close 知道了
+
+    script(type='text/javascript').
+        $('#close').on('click',function(){
+            $('.errorTab').hide()
+        })

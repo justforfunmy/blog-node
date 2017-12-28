@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1 Login
+    form(method='POST' action='/users/login')
+        .form-group.formWidth
+            label 用户名
+            input.form-control(type='text' placeholder='input your name' value=account.userName name='userName')
+        .form-group.formWidth
+            label 密码
+            input.form-control(type='password' placeholder='input your password' value=account.password name='password')
+        .checkbox
+            label
+                input(type='checkbox')
+                p 记住我
+        button.btn.btn-default.click(type = 'submit') 登录
+        a(href='/users/signUp') 还没帐号，去注册
