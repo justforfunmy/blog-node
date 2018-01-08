@@ -1,7 +1,9 @@
 var users = require('./users');
 var blog = require('./blog');
 var upload = require('./upload');
-var agree = require('./agree')
+var agree = require('./agree');
+
+var wsTrendNumber = require('./wStreet/wsTrendNumber')
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
@@ -12,4 +14,7 @@ module.exports = function (app) {
     app.use('/blog', blog);
     app.use('/upload', upload);
     app.use('/agree', agree);
+
+    //华尔街见闻api
+    app.use('/wsTrendNumber',wsTrendNumber)
 }

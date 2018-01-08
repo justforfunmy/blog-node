@@ -98,8 +98,34 @@ var commentSchema = new mongoose.Schema({
 
 var commentModel = mongoose.model('comment', userSchema, 'comment');
 
+// 应用与华尔街见闻
+let wsTrendNumberSchema = new mongoose.Schema({
+    title:{
+        type:String
+    },
+    shortContent:{
+        type:String
+    },
+    trendDatas:[{
+        standard:{
+            type:String
+        },
+        number:{
+            type:Number
+        },
+        trend:{
+            type:String
+        },
+        percent:{
+            type:Number
+        }
+    }]
+})
+let wsTrendNumberModel = mongoose.model('wsTrendNumber',wsTrendNumberSchema,'wsTrendNumber')
+
 module.exports = {
     userModel,
     blogModel,
-    commentModel
+    commentModel,
+    wsTrendNumberModel
 }
